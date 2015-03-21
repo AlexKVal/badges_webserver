@@ -9,6 +9,8 @@ var io = require('socket.io').listen(server);
 
 var subscribeSocket = require('./lib/subscribe');
 
+var badges = require('./models/badges');
+
 var port = 3000;
 server.listen(port, function () {
   console.log('Server is listening on port %d', port);
@@ -24,7 +26,7 @@ app.get('/', function (req, res) {
 });
 
 io.socket.on('connection', function (socket) {
-  model.get(function (err, data) {
+  badges.get(function (err, data) {
     if (err) return;
     data.forEach(function (badge) {
       socket.emit('badge', badge);
