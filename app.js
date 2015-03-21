@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
   res.sendfile('./public/index.html');
 });
 
-io.socket.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
   badges.get(function (err, data) {
     if (err) return;
     data.forEach(function (badge) {
@@ -35,5 +35,5 @@ io.socket.on('connection', function (socket) {
 });
 
 subscribeSocket.on('message', function (message) {
-  io.socket.emit('badge', message);
+  io.sockets.emit('badge', message);
 });
